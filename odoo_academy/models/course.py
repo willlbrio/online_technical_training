@@ -17,11 +17,10 @@ class Course(models.Model):
                                        ('advanced', 'Advanced')],
                              copy=False)
     
-    active = fields.Boolean(string='Active', default = True)
-    
+    active = fields.Boolean(string='Active', default = T
     base_price = fields.Float(string='Base Price',default=0.00)
     
-    additional_fee = fields.Float(string='Additional Fee', default=0.00)
+    additional_fee = fields.Float(string='Additional Fee', default=10.00)
     
     total_price = fields.Float(string='Total Price', readonly=True)
     
@@ -31,7 +30,7 @@ class Course(models.Model):
             raise UserError('Base Price cannot be set as Negative.')
      
             self.total_price = self.base_price + self.additional_fee
-    #exple
+    
     @api.constrains('additional_fee')
     def _check_additional_fee(self):
         for record in self:
